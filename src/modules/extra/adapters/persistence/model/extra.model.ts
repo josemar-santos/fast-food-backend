@@ -9,14 +9,6 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 export class ExtraModel extends BaseModel {
 
 
-    constructor(
-        name: string,
-        price: number,
-        modification: ModificationType,
-        food: FoodModel
-    ) {
-        super()
-    }
     
     @Column({
         name: 'extra_name',

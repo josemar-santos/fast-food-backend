@@ -57,12 +57,10 @@ export class CategoryRepositoryImplementation implements CategoryRepository {
     });
   }
 
-  async findOne(id: string): Promise<CategoryEntity> {
+  async findId(id: string): Promise<CategoryEntity> {
     const category = await this.repository.findOne({ where: { id } });
 
-    if (!category) {
-      throw new NotFoundException('Category was not found');
-    }
+    if (!category) return null;
 
     return this.mapper.toEntity(category);
   }
@@ -84,12 +82,9 @@ export class CategoryRepositoryImplementation implements CategoryRepository {
   }
 
   async findByName(name: string): Promise<CategoryEntity> {
-    console.log(name)
     const category = await this.repository.findOne({ where: { name } });
 
-    if (!category) {
-      throw new NotFoundException('Category was not found');
-    }
+    if (!category) return null;
 
     return this.mapper.toEntity(category);
   }

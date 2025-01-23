@@ -49,5 +49,10 @@ import { CommonModule } from '../common/common.module';
     },
   ],
   controllers: [ListFoodController, CreateFoodController],
+  exports: [
+    FoodRepository,
+    FoodMapper,
+    TypeOrmModule
+  ]
 })
 export class FoodModule {}

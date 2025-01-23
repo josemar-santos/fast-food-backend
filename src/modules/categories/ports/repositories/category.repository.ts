@@ -10,9 +10,9 @@ export abstract class CategoryRepository {
     search?: string,
     deleted?: string,
   ): Promise<Page<CategoryEntity>>;
-  abstract findOne(id: string): Promise<CategoryEntity>;
+  abstract findId(id: string): Promise<CategoryEntity | null>;
   abstract delete(id: string): Promise<void>;
   abstract existByAvatar(avatar: string): Promise<boolean>;
   abstract update(data: CategoryEntity): Promise<CategoryEntity>;
-  abstract findByName(name: string): Promise<CategoryEntity>;
+  abstract findByName(name: string): Promise<CategoryEntity | null>;
 }

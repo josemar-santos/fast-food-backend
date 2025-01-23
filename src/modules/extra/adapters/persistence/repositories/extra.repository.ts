@@ -7,36 +7,41 @@ import { Repository } from "typeorm";
 import { FoodMapper } from "src/modules/foods/adapters/persistence/mapper/food.mapper";
 import { FoodEntity } from "src/modules/foods/domain/entities/food";
 import { FoodRepository } from "src/modules/foods/ports/repositories/food.repository";
+import { FoodModel } from "src/modules/foods/adapters/persistence/models/food.model";
+import { ExtraMapper } from "../mapper/extra.mapper";
 
 @Injectable()
 export class ExtraRepositoryImplementation implements ExtraRepository {
 
     constructor(
         @InjectRepository(ExtraModel)
-        private readonly repository: Repository<ExtraModel>,
-        private readonly foodRepository: FoodRepository,
-        private readonly foodMapper: FoodMapper
+        private readonly extraRepository: Repository<ExtraModel>,
+        @InjectRepository(FoodModel)
+        private readonly foodRepository: Repository<FoodModel>,
+        private readonly mapper: ExtraMapper
       ) {}
       
     async existExtra(food: string, extraName: string): Promise<boolean> {
 
-        return this.repository.existsBy({
+        return this.extraRepository.existsBy({
             food: { id: food },
             name: extraName
         });
     }
+
     async save(entity: ExtraEntity): Promise<ExtraEntity> {
-        /*const data = await this.foodRepository.findById(entity.id);
-        const food = await this.foodMapper.toModel(data);
-        const { name, addionalPrice, modificationType } = entity;
 
-        const extra = new ExtraModel(name, addionalPrice, modificationType, food);
 
-        await this.repository.save(extra);
+        const food = await this.foodRepository.findOne({ where: { id: entity.food}, relations: { category: true } });
 
-        return food*/
+        const data = new ExtraModel();
+        data.name = entity.name;
+        data.price = entity.addionalPrice;
+        data.food = food;
+        data.modification = entity.modificationType;
+        const extra = await this.extraRepository.save(data);
 
-        throw new Error();
+        return this.mapper.toEntity(extra);
     }
 
 }

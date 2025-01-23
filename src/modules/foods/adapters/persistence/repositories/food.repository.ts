@@ -77,11 +77,15 @@ export class FoodRepositoryImplementation implements FoodRepository {
     return this.mapper.toEntity(saved);
   }
 
-  async findById(id: string): Promise<FoodEntity> {
-      const food = await this.repository.findOne({ where: { id }});
+  async findById(id: string): Promise<FoodEntity | null> {
+      const food = await this.repository.findOne({ where: { id }, relations: { category: true }});
 
-      if(!food) throw new CustomerNotFoundExecption("Food not found");
+      if(!food) return null;
 
       return this.mapper.toEntity(food);
+  }
+
+  async existById(id: string): Promise<boolean> {
+      return this.repository.existsBy({ id })
   }
 }
