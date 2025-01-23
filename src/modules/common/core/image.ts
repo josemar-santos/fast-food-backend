@@ -1,4 +1,4 @@
-import { MimeTypeException } from './exceptions/mimetype-exception';
+import { MimeTypeException } from './exceptions/mimetype.exception';
 
 export class Image {
   filename: string;

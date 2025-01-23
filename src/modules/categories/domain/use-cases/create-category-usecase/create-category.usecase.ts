@@ -1,8 +1,8 @@
 import { CategoryRepository } from 'src/modules/categories/ports/repositories/category.repository';
 import { CreateCategoyPayload } from '../../helpers/create-category';
-import { CategoryExistException } from '../../execptions/category-exception';
 import { CategoryEntity } from '../../entities/categories';
 import { UploadService } from 'src/modules/common/ports/services/upload-service/upload.service';
+import { CustomerConflictException } from 'src/modules/common/core/exceptions/conflict.exception';
 
 export class CreateCategoryUseCase {
   constructor(
@@ -14,7 +14,7 @@ export class CreateCategoryUseCase {
     const existCategory = await this.categoryRepository.existByName(data.name);
 
     if (existCategory) {
-      throw new CategoryExistException();
+      throw new CustomerConflictException('Category just exist');
     }
 
     const avatar = await this.uploadService.upload(data.avatar);

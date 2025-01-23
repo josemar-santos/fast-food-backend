@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { FoodModule } from './modules/foods/food.module';
+import { ExtraModule } from './modules/extra/extra.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { FoodModule } from './modules/foods/food.module';
       synchronize: Boolean(process.env.DEVELOPMENT),
     }),
     CategoriesModule,
-    FoodModule
+    FoodModule,
+    ExtraModule
   ],
 })
 export class AppModule {}

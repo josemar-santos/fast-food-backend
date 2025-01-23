@@ -19,7 +19,7 @@ export class CreateFoodController {
     @Body() body: CreateFoodDto,
     @UploadedFile() avatar: Express.Multer.File,
   ) {
-    return this.createfoodUseCase.exec({
+    const food = await this.createfoodUseCase.exec({
       name: body.name,
       description: body.description,
       url: ImageMapper.toImage(avatar),
@@ -27,5 +27,8 @@ export class CreateFoodController {
       price: body.price,
       category: body.category,
     });
+
+
+    return food;
   }
 }

@@ -5,7 +5,7 @@ export class Mapper<E, M> {
     throw Error('method not implemented');
   }
 
-  toList(data: Array<M>): Array<E> {
+  protected toList(data: Array<M>): Array<E> {
     return data.map((item) => this.convert(item));
   }
 

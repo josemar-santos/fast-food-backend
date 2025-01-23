@@ -1,4 +1,6 @@
 import { BaseEntity } from "src/modules/common/core/entity";
+import { ResponseFood } from "../helpers/interfaces/reponse-food";
+import { CategoryEntity } from "src/modules/categories/domain/entities/categories";
 
 export class FoodEntity extends BaseEntity {
   name: string;

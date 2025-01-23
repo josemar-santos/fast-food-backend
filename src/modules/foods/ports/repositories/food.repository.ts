@@ -16,4 +16,5 @@ export abstract class FoodRepository {
   ): Promise<Page<FoodEntity>>;
 
   abstract save(food: FoodEntity): Promise<FoodEntity>;
+  abstract findById(id: string): Promise<FoodEntity>;
 }

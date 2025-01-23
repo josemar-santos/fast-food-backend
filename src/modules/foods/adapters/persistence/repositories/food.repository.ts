@@ -13,6 +13,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FoodMapper } from '../mapper/food.mapper';
 import { CategoryRepository } from 'src/modules/categories/ports/repositories/category.repository';
 import { CategoryMapper } from 'src/modules/categories/adapters/persitence/mapper/category.mapper';
+import { CustomerNotFoundExecption } from 'src/modules/common/core/exceptions/not-found.exception';
 
 @Injectable()
 export class FoodRepositoryImplementation implements FoodRepository {
@@ -41,7 +42,7 @@ export class FoodRepositoryImplementation implements FoodRepository {
       const { name, category, prepareTime, deleted } = search;
 
       if (name) where['name'] = Like(`%${name}%`);
-      if (category) where['category'] = Like(`${category}`);
+      if (category) where['category'] = { name: Like(`${category}`) };
       if (prepareTime) where['prepareTime'] = Like(`${prepareTime}`);
       if (deleted) where['deleted'] = Like(`${deleted}`);
     }
@@ -74,5 +75,13 @@ export class FoodRepositoryImplementation implements FoodRepository {
 
     const saved = await this.repository.save(food);
     return this.mapper.toEntity(saved);
+  }
+
+  async findById(id: string): Promise<FoodEntity> {
+      const food = await this.repository.findOne({ where: { id }});
+
+      if(!food) throw new CustomerNotFoundExecption("Food not found");
+
+      return this.mapper.toEntity(food);
   }
 }

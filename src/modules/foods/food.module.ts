@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FoodModel } from './adapters/persistence/models/food.model';
 import { FoodMapper } from './adapters/persistence/mapper/food.mapper';
-import { FoodRepositoryImplementation } from './adapters/persistence/repositories/foodRepository';
+import { FoodRepositoryImplementation } from './adapters/persistence/repositories/food.repository';
 import { FoodRepository } from './ports/repositories/food.repository';
 import { ListFoodUseCase } from './domain/use-cases/list-food-usecase/list-food.usecase';
 import { ListFoodController } from './adapters/http/controllers/list-food/list-food.controller';

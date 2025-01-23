@@ -3,7 +3,6 @@ import { CreateFoodDto } from '../../helpers/dto/create-food';
 import { UploadService } from 'src/modules/common/ports/services/upload-service/upload.service';
 import { FoodEntity } from '../../entities/food';
 import { CategoryRepository } from 'src/modules/categories/ports/repositories/category.repository';
-import { CategoryNotFound } from 'src/modules/categories/domain/execptions/category-notfound.exception';
 
 export class CreateFoodUseCase {
   constructor(
@@ -12,11 +11,7 @@ export class CreateFoodUseCase {
     private readonly categoryRepository: CategoryRepository,
   ) {}
   async exec(data: CreateFoodDto) {
-    const existCategory = this.categoryRepository.existByName(data.name);
-
-    if (!existCategory) {
-      throw new CategoryNotFound();
-    }
+    const category = await this.categoryRepository.findByName(data.category);
 
     const avatar = await this.uploadService.upload(data.url);
 
@@ -24,7 +19,7 @@ export class CreateFoodUseCase {
       .setName(data.name)
       .setPrice(data.price)
       .setPrepareTime(data.prepareTime)
-      .setCategory(data.category)
+      .setCategory(category.name)
       .setUrl(avatar)
       .setDescription(data.description);
 

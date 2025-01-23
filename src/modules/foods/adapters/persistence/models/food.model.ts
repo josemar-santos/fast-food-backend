@@ -1,6 +1,7 @@
 import { CategoryModel } from 'src/modules/categories/adapters/persitence/models/categories.model';
 import { BaseModel } from 'src/modules/common/adapters/models/baseModel';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { ExtraModel } from 'src/modules/extra/adapters/persistence/model/extra.model';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({
   name: 'foods',
@@ -24,8 +25,7 @@ export class FoodModel extends BaseModel {
   })
   prepareTime: string;
 
-  @ManyToOne(() => CategoryModel, (category) => category.foods)
-  category: CategoryModel;
+
 
   @Column({
     name: 'food_description',
@@ -39,4 +39,10 @@ export class FoodModel extends BaseModel {
     length: 150,
   })
   url: string;
+
+  @ManyToOne(() => CategoryModel, (category) => category.foods)
+  category: CategoryModel;
+
+  @OneToMany(() => ExtraModel, (extra) => extra.food)
+  extras: ExtraModel[];
 }

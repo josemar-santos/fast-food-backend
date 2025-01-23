@@ -84,6 +84,7 @@ export class CategoryRepositoryImplementation implements CategoryRepository {
   }
 
   async findByName(name: string): Promise<CategoryEntity> {
+    console.log(name)
     const category = await this.repository.findOne({ where: { name } });
 
     if (!category) {
