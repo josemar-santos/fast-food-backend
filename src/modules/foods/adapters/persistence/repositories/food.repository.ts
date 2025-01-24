@@ -47,7 +47,11 @@ export class FoodRepositoryImplementation implements FoodRepository {
       if (deleted) where['deleted'] = Like(`${deleted}`);
     }
 
+    const skip = perPage * (page - 1);
+
     const [foods, total] = await this.repository.findAndCount({
+      skip,
+      take: perPage,
       where,
       order: orderBy,
       relations: { category: true },

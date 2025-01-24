@@ -9,6 +9,7 @@ import { FoodEntity } from "src/modules/foods/domain/entities/food";
 import { FoodRepository } from "src/modules/foods/ports/repositories/food.repository";
 import { FoodModel } from "src/modules/foods/adapters/persistence/models/food.model";
 import { ExtraMapper } from "../mapper/extra.mapper";
+import { Page } from "src/modules/common/core/page";
 
 @Injectable()
 export class ExtraRepositoryImplementation implements ExtraRepository {
@@ -44,4 +45,22 @@ export class ExtraRepositoryImplementation implements ExtraRepository {
         return this.mapper.toEntity(extra);
     }
 
+
+    async findAll(page: number, perPage: number, food_id: string): Promise<Page<ExtraEntity>> {
+
+        const skip = perPage * (page - 1);
+        const [foods, total] = await this.extraRepository.findAndCount({
+            where: { food: { id: food_id }},
+            take: perPage,
+            relations: { food: true},
+            order: { modification: 'asc' },
+            skip
+        });
+      
+          return this.mapper.toPage(foods, {
+            page,
+            perPage,
+            total,
+          });
+    }
 }

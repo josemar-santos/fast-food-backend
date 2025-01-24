@@ -1,11 +1,10 @@
 import { BaseEntity } from "src/modules/common/core/entity";
-import { FoodEntity } from "src/modules/foods/domain/entities/food";
 import { ModificationType } from "../helpers/types/modification-type";
 
 export class ExtraEntity extends BaseEntity {
 
     name: string;
-    addionalPrice: number;
+    addionalPrice: string;
     food: string;
     modificationType: ModificationType;
 
@@ -18,7 +17,7 @@ export class ExtraEntity extends BaseEntity {
         return this;
     }
 
-    setAddionalPrice(price: number): ExtraEntity {
+    setAddionalPrice(price: string): ExtraEntity {
         this.addionalPrice = price;
         return this;
     }

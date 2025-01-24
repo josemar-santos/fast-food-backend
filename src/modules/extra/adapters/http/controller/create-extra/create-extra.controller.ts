@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { CreateExtraUseCase } from 'src/modules/extra/domain/use-cases/createExtra-usecase/createExtra.usecase';
+import { CreateExtraUseCase } from 'src/modules/extra/domain/use-cases/createExtra-usecase/create-extra.usecase';
 import { CreateExtraDto } from '../../Dto/create-extra';
 
 @Controller('extra')

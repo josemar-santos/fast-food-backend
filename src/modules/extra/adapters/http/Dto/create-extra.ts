@@ -7,9 +7,10 @@ export class CreateExtraDto implements ICreateExtra {
     @IsNotEmpty()
     @IsString()
     name: string;
+
     @IsNotEmpty()
     @IsCurrency()
-    price: number;
+    price: string;
 
     @IsNotEmpty()
     @IsUUID()

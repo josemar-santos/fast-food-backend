@@ -2,7 +2,7 @@ import { ModificationType } from "./modification-type";
 
 export interface ICreateExtra {
     name: string;
-    price: number;
+    price: string;
     food: string;
     modification: ModificationType;
 }
