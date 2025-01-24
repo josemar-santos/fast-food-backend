@@ -12,6 +12,8 @@ import { UploadService } from '../common/ports/services/upload-service/upload.se
 import { CreateFoodUseCase } from './domain/use-cases/create-food-usecase/create-food.usecase';
 import { CategoryRepository } from '../categories/ports/repositories/category.repository';
 import { CommonModule } from '../common/common.module';
+import { FindOneFoodUseCase } from './domain/use-cases/findOne-food-usecase/findOne-food.usecase';
+import { FindOneFoodController } from './adapters/http/controller/find-one-food/find-one-food.controller';
 
 @Module({
   imports: [
@@ -33,6 +35,13 @@ import { CommonModule } from '../common/common.module';
       inject: [FoodRepository],
     },
     {
+      provide: FindOneFoodUseCase,
+      useFactory: (foodRepository: FoodRepository) => {
+        return new FindOneFoodUseCase(foodRepository);
+      },
+      inject: [FoodRepository],
+    },
+    {
       provide: CreateFoodUseCase,
       useFactory: (
         foodRepository: FoodRepository,
@@ -48,7 +57,7 @@ import { CommonModule } from '../common/common.module';
       inject: [FoodRepository, UploadService, CategoryRepository],
     },
   ],
-  controllers: [ListFoodController, CreateFoodController],
+  controllers: [ListFoodController, CreateFoodController, FindOneFoodController],
   exports: [
     FoodRepository,
     FoodMapper,
