@@ -3,7 +3,7 @@ import { CategoryRepository } from './ports/repositories/category.repository';
 import { CategoryRepositoryImplementation } from './adapters/persitence/repositories/category.repository';
 import { ListCategoriesUseCase } from './domain/use-cases/list-categories-usecase/list-categories.usecase';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CategoryModel } from './adapters/persitence/models/categories.model';
+import { CategoryModel } from './adapters/persitence/model/categories.model';
 import { CategoryMapper } from './adapters/persitence/mapper/category.mapper';
 import { CreateCategoryUseCase } from './domain/use-cases/create-category-usecase/create-category.usecase';
 import { CreateCategoryController } from './adapters/http/controllers/create-category/create-category.controller';

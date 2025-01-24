@@ -7,7 +7,7 @@ import { Repository } from "typeorm";
 import { FoodMapper } from "src/modules/foods/adapters/persistence/mapper/food.mapper";
 import { FoodEntity } from "src/modules/foods/domain/entities/food";
 import { FoodRepository } from "src/modules/foods/ports/repositories/food.repository";
-import { FoodModel } from "src/modules/foods/adapters/persistence/models/food.model";
+import { FoodModel } from "src/modules/foods/adapters/persistence/model/food.model";
 import { ExtraMapper } from "../mapper/extra.mapper";
 import { Page } from "src/modules/common/core/page";
 

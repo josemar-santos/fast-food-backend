@@ -1,6 +1,6 @@
 import { BaseModel } from "src/modules/common/adapters/models/baseModel";
 import { ModificationType } from "src/modules/extra/domain/helpers/types/modification-type";
-import { FoodModel } from "src/modules/foods/adapters/persistence/models/food.model";
+import { FoodModel } from "src/modules/foods/adapters/persistence/model/food.model";
 import { Column, Entity, ManyToOne } from "typeorm";
 
 @Entity({

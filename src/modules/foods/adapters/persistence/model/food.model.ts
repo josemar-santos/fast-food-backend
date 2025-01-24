@@ -1,4 +1,4 @@
-import { CategoryModel } from 'src/modules/categories/adapters/persitence/models/categories.model';
+import { CategoryModel } from 'src/modules/categories/adapters/persitence/model/categories.model';
 import { BaseModel } from 'src/modules/common/adapters/models/baseModel';
 import { ExtraModel } from 'src/modules/extra/adapters/persistence/model/extra.model';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FoodModel } from './adapters/persistence/models/food.model';
+import { FoodModel } from './adapters/persistence/model/food.model';
 import { FoodMapper } from './adapters/persistence/mapper/food.mapper';
 import { FoodRepositoryImplementation } from './adapters/persistence/repositories/food.repository';
 import { FoodRepository } from './ports/repositories/food.repository';
@@ -13,7 +13,9 @@ import { CreateFoodUseCase } from './domain/use-cases/create-food-usecase/create
 import { CategoryRepository } from '../categories/ports/repositories/category.repository';
 import { CommonModule } from '../common/common.module';
 import { FindOneFoodUseCase } from './domain/use-cases/findOne-food-usecase/findOne-food.usecase';
-import { FindOneFoodController } from './adapters/http/controller/find-one-food/find-one-food.controller';
+import { FindOneFoodController } from './adapters/http/controllers/find-one-food/find-one-food.controller';
+import { DeleteFoodUseCase } from './domain/use-cases/delete-food-usecase/delete-food.usecase';
+import { DeleteFoodController } from './adapters/http/controllers/delete-food/delete-food.controller';
 
 @Module({
   imports: [
@@ -31,6 +33,13 @@ import { FindOneFoodController } from './adapters/http/controller/find-one-food/
       provide: ListFoodUseCase,
       useFactory: (foodRepository: FoodRepository) => {
         return new ListFoodUseCase(foodRepository);
+      },
+      inject: [FoodRepository],
+    },
+    {
+      provide: DeleteFoodUseCase,
+      useFactory: (foodRepository: FoodRepository) => {
+        return new DeleteFoodUseCase(foodRepository);
       },
       inject: [FoodRepository],
     },
@@ -57,7 +66,7 @@ import { FindOneFoodController } from './adapters/http/controller/find-one-food/
       inject: [FoodRepository, UploadService, CategoryRepository],
     },
   ],
-  controllers: [ListFoodController, CreateFoodController, FindOneFoodController],
+  controllers: [ListFoodController, CreateFoodController, FindOneFoodController, DeleteFoodController],
   exports: [
     FoodRepository,
     FoodMapper,

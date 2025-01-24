@@ -7,17 +7,20 @@ export class ListFoodController {
   constructor(private readonly listFoodUseCase: ListFoodUseCase) {}
   @Get()
   index(@Query() pagination: PageProps) {
+
+    const params = {
+      deleted: pagination.deleted,
+      name: pagination.name,
+      prepareTime: pagination.prepareTime,
+      category: pagination.category,
+    }
+
     return this.listFoodUseCase.execute(
       pagination.page,
       pagination.perPage,
       pagination.order,
       pagination.sort,
-      {
-        deleted: pagination.deleted,
-        name: pagination.name,
-        prepareTime: pagination.prepareTime,
-        category: pagination.category,
-      },
+      params
     );
   }
 }

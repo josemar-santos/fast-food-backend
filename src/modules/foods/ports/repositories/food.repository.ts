@@ -18,4 +18,5 @@ export abstract class FoodRepository {
   abstract save(food: FoodEntity): Promise<FoodEntity>;
   abstract findById(id: string): Promise<FoodEntity | null>;
   abstract existById(id: string): Promise<boolean>;
+  abstract delete(id: string): Promise<void>;
 }

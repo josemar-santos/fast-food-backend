@@ -7,8 +7,8 @@ import {
   Sort,
 } from 'src/modules/foods/domain/helpers/interfaces/search-params';
 import { FoodRepository } from 'src/modules/foods/ports/repositories/food.repository';
-import { Like, Repository } from 'typeorm';
-import { FoodModel } from '../models/food.model';
+import { Equal, Like, Repository } from 'typeorm';
+import { FoodModel } from '../model/food.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FoodMapper } from '../mapper/food.mapper';
 import { CategoryRepository } from 'src/modules/categories/ports/repositories/category.repository';
@@ -23,7 +23,7 @@ export class FoodRepositoryImplementation implements FoodRepository {
     private readonly mapper: FoodMapper,
     private readonly categoryRepository: CategoryRepository,
     private readonly categoryMapper: CategoryMapper,
-  ) {}
+  ) { }
   async findAll(
     page: number,
     perPage: number,
@@ -44,7 +44,9 @@ export class FoodRepositoryImplementation implements FoodRepository {
       if (name) where['name'] = Like(`%${name}%`);
       if (category) where['category'] = { name: Like(`${category}`) };
       if (prepareTime) where['prepareTime'] = Like(`${prepareTime}`);
-      if (deleted) where['deleted'] = Like(`${deleted}`);
+      if (deleted !== null) where['deleted'] = Equal(`${deleted}`);
+
+
     }
 
     const skip = perPage * (page - 1);
@@ -82,14 +84,20 @@ export class FoodRepositoryImplementation implements FoodRepository {
   }
 
   async findById(id: string): Promise<FoodEntity | null> {
-      const food = await this.repository.findOne({ where: { id }, relations: { category: true }});
+    const food = await this.repository.findOne({ where: { id }, relations: { category: true } });
 
-      if(!food) return null;
+    if (!food) return null;
 
-      return this.mapper.toEntity(food);
+    return this.mapper.toEntity(food);
   }
 
   async existById(id: string): Promise<boolean> {
-      return this.repository.existsBy({ id })
+    return this.repository.existsBy({ id })
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.update(id, { deleted: true });
+
+  }
+
 }

@@ -1,5 +1,5 @@
 import { BaseModel } from 'src/modules/common/adapters/models/baseModel';
-import { FoodModel } from 'src/modules/foods/adapters/persistence/models/food.model';
+import { FoodModel } from 'src/modules/foods/adapters/persistence/model/food.model';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'categories' })
